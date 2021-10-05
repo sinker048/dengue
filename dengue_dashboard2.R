@@ -7,8 +7,8 @@ library("shinythemes")
 library("plotly")
 
 ###讀檔案
-people=read.csv("./10402.csv",header = T)
-dengue=read.csv("./dengue104.csv",header = T)
+people=read.csv("https://data.tainan.gov.tw/dataset/4c260d97-e268-4b4a-8b15-c0fc92a25120/resource/532e1521-5708-4514-97c7-9d0fc502cc8d/download/10402.csv")
+dengue=read.csv("https://data.tainan.gov.tw/dataset/3ad9da64-0c29-4299-b769-320b57a09be8/resource/7617bfcd-20e2-4f8d-a83b-6f6b479367f9/download/dengue104.csv")
 
 
 ######################################
