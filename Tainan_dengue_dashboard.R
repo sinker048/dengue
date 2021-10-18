@@ -5,19 +5,20 @@ library("leaflet")
 library("scales")
 library("shinythemes")
 library("plotly")
-
+library('showtext')
+library('showtextdb')
+library('sysfonts')
 ###讀檔案
 people=read.csv("https://data.tainan.gov.tw/dataset/4c260d97-e268-4b4a-8b15-c0fc92a25120/resource/532e1521-5708-4514-97c7-9d0fc502cc8d/download/10402.csv")
 dengue=read.csv("https://data.tainan.gov.tw/dataset/3ad9da64-0c29-4299-b769-320b57a09be8/resource/7617bfcd-20e2-4f8d-a83b-6f6b479367f9/download/dengue104.csv")
 
-
 ######################################
 
-
+showtext_auto(enable = TRUE)
+font_add_google('Noto Sans TC','Noto Sans TC')
 
 ###資料前處理
 ##選取人數較多的行政區域，較少的歸類為其他
-
 tt=(dengue$區別!="東區"&dengue$區別!="北區"&dengue$區別!="中西區"&dengue$區別!="南區"&dengue$區別!="永康區"&dengue$區別!="安南區"&dengue$區別!="安平區")
 c=c()
 for(i in 1:length(dengue$區別)){
@@ -342,7 +343,7 @@ ui=fluidPage(theme = shinytheme("flatly"),
              navbarPage(title= "104年台南登革熱災情",
                         tabPanel(title="動機與目的",
                                  verticalLayout(
-                                   tags$img(src="http://tnr.com.tw/images/NewsImage/unnamed%20(3)_77.jpg", 
+                                   tags$img(src="https://www.cdc.gov.tw/Uploads/Files/787fedd6-e042-4bcb-8097-4755a28ac1ec.jpg", 
                                             width = "500px", height = "250px"),
                                    mainPanel(
                                      br(),
@@ -502,10 +503,10 @@ ui=fluidPage(theme = shinytheme("flatly"),
                         tabPanel(title="小組成員工作分配",
                                  titlePanel("工作分配"),
                                  helpText("林澤慶：Dashboard、程式、找老師討論"),
-                                 helpText("張伊萱：Dashboard、程式、找老師討論"),
-                                 helpText("黃思媛：上台報告、找老師討論"),
-                                 helpText("羅盼寧：上台報告、找老師討論"),
-                                 helpText("曾筱媛：書面報告、找老師討論")
+                                 helpText("張O萱：Dashboard、程式、找老師討論"),
+                                 helpText("黃O媛：上台報告、找老師討論"),
+                                 helpText("羅O寧：上台報告、找老師討論"),
+                                 helpText("曾O媛：書面報告、找老師討論")
                         ),
                         tabPanel(title="參考資料",
                                  titlePanel("參考資料"),
@@ -532,7 +533,9 @@ ui=fluidPage(theme = shinytheme("flatly"),
                                  tags$a(href="https://zh.wikipedia.org/wiki/2015%E5%B9%B4%E8%87%BA%E5%8D%97%E5%B8%82%E7%99%BB%E9%9D%A9%E7%86%B1%E7%96%AB%E6%83%85",
                                         "2015年臺南市登革熱疫情"),
                                  br(),
-                                 tags$a(href="https://plot.ly/r/","Plotly")
+                                 tags$a(href="https://plot.ly/r/","Plotly"),
+                                 br(),
+                                 tags$a(href = 'https://www.cdc.gov.tw/Uploads/Files/787fedd6-e042-4bcb-8097-4755a28ac1ec.jpg','登革熱')
                                  
                         )
                         
@@ -709,7 +712,7 @@ server=function(input,output){
     theme(axis.text=element_blank()) +
     theme(axis.ticks=element_blank()) +
     annotate("text", x = 0, y = 0, label = " ") +
-    labs(title="台南行政區登革熱噴藥次數的比例",x="",y="")
+    labs(family = 'Noto Sans TC',title="台南行政區登革熱噴藥次數的比例",x="",y="")
   p1})
   output$histogram=renderPlot({
     detach("package:plotly", unload = TRUE)
@@ -728,7 +731,7 @@ server=function(input,output){
          xlab = "日期",
          freq=T,
          ylab="臺南確診登革熱的人數(人)",
-         main=("2015年臺南確診登革熱人數的直方圖") )
+         main=("2015台南確診登革熱的直方圖") )
     grid()
     library("plotly")
   })
